@@ -1,20 +1,24 @@
-from flask import Flask, render_template, url_for, flash, redirect
-from forms import RegistrationForm,LoginForm
-app = Flask(__name__)
 
-app.config['SECRET_KEY'] = '3638836a16e1e56ee58871cfaf32e290'
+from flask import  render_template, url_for, flash, redirect
+
+from flaskblog import app
+
+from flaskblog.forms import RegistrationForm,LoginForm
+
+from flaskblog.models import User,Post
+
 posts = [
     {
-        'author':'Corey Schafer',
-        'title':'post 1',
-        'content':'First post comment',
-        'date_posted':'April 21,2018'
+        'author': 'Corey Schafer',
+        'title': 'Blog Post',
+        'content': 'First post content',
+        'date_posted': 'April 20, 2018'
     },
     {
-        'author':'Sheila Kioko',
-        'title':'post 2',
-        'content':'second post comment',
-        'date_posted':'April 20,2019'
+        'author': 'Sheila Abby',
+        'title': 'My Blog Post',
+        'content': 'second  post content',
+        'date_posted': 'April 21, 2018'
     }
 ]
 
