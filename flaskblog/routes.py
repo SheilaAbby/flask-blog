@@ -1,5 +1,5 @@
 
-from flask import  render_template, url_for, flash, redirect, request, abort
+from flask import render_template, url_for, flash, redirect, request, abort
 
 import secrets
 
@@ -9,17 +9,16 @@ import os
 
 from flaskblog import app, db, bcrypt
 
-from flaskblog.forms import RegistrationForm,LoginForm,  UpdateAccountForm, PostForm
+from flaskblog.forms import RegistrationForm, LoginForm,  UpdateAccountForm, PostForm
 
-from flaskblog.models import User,Post
+from flaskblog.models import User, Post
 
 from flask_login import login_user, current_user, logout_user, login_required
 
 
-
 @app.route('/')
 def home():
-    posts = Post.query.all() # grab all posts
+    posts = Post.query.all()  # grab all posts
     return render_template('home.html', posts=posts)
 
 
