@@ -18,7 +18,8 @@ from flask_login import login_user, current_user, logout_user, login_required
 
 @app.route('/')
 def home():
-    posts = Post.query.all()  # grab all posts
+    page = request.args.get('page', 1, type=int)
+    posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)  # grab all posts
     return render_template('home.html', posts=posts)
 
 
@@ -34,12 +35,12 @@ def register():
     form = RegistrationForm() # create a register form
     if form.validate_on_submit():
         hashed_pass = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(username = form.username.data, email = form.email.data, password = hashed_pass)
+        user = User(username=form.username.data, email=form.email.data, password=hashed_pass)
         db.session.add(user)
         db.session.commit()  # commit the changes and save the user to the database
         flash(f'Your Account has been created,you are now able to login', 'success')
         return redirect(url_for('login'))
-    return render_template('register.html', title='Register', form=form)
+    return render_template('register.html', title='Join Today', form=form)
 
 
 @app.route('/login', methods=['GET', 'POST'])
