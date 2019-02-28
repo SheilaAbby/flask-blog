@@ -5,15 +5,13 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 
 from flask_login import LoginManager
-
+import os
 
 app = Flask(__name__)
 
-app.config['SECRET_KEY'] = '3638836a16e1e56ee58871cfaf32e290'
+app.config.from_object(os.environ['APP_SETTINGS'])
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# configure the db
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:''@localhost/flask-blog'
-app.config['SQLALCHEMY_TRACK_MODIFICATION'] = False
 
 # instatiate an object for SQLAlchemy module .
 db = SQLAlchemy(app)
@@ -22,5 +20,5 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 login_manager.login_message_category = 'info'
 
-#import the routes
+# import the routes
 from flaskblog import routes
