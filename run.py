@@ -1,9 +1,11 @@
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 
-from flaskblog import app, db
+from flaskblog import create_app
 
-migrate = Migrate(app, db)
+app = create_app()
+
+migrate = Migrate(app)
 manager = Manager(app)
 
 manager.add_command('db', MigrateCommand)
